@@ -1,0 +1,114 @@
+:root {
+  color-scheme: dark;
+  --bg: #131722;
+  --panel: #1e222d;
+  --border: #2a2e39;
+  --text: #d1d4dc;
+  --muted: #9598a1;   /* about 5:1 contrast on --panel */
+  --accent: #2962ff;
+  --accent-hover: #1e53e5;
+  --active: #2a3a6b;
+  --error: #f23645;
+  --ok: #089981;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+
+.label {
+  color: var(--muted);
+  font-size: 12px;
+  margin-right: 2px;
+}
+
+button, select, input {
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  min-height: 28px;
+}
+
+button { cursor: pointer; }
+button:hover:not(:disabled) { border-color: var(--muted); }
+button:disabled { opacity: 0.5; cursor: default; }
+button.active { background: var(--active); border-color: var(--accent); }
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+button.primary:hover:not(:disabled) { background: var(--accent-hover); }
+
+#symbol {
+  width: 120px;
+  text-transform: uppercase;
+}
+
+#symbol::placeholder { color: var(--muted); }
+
+.check {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+#chart {
+  flex: 1;
+  min-height: 0;
+}
+
+.statusbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  padding: 6px 12px;
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.statusbar .error { color: var(--error); }
+.statusbar .ok { color: var(--ok); }
+.disclaimer { margin-left: auto; }
+
+@media (max-width: 700px) {
+  .toolbar { gap: 6px 10px; padding: 6px 8px; }
+  .disclaimer { margin-left: 0; }
+}

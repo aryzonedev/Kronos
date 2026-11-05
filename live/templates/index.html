@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kronos Live Chart</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="toolbar">
+    <div class="group">
+      <select id="market" aria-label="Market" title="Market"></select>
+      <input id="symbol" list="symbol-list" spellcheck="false" autocomplete="off"
+             aria-label="Symbol" title="Type a symbol and press Enter">
+      <datalist id="symbol-list"></datalist>
+    </div>
+
+    <div class="group" id="intervals" role="group" aria-label="Interval"></div>
+
+    <div class="group" role="group" aria-label="Indicators">
+      <span class="label">Indicators</span>
+      <button type="button" class="indicator" data-name="MA" aria-pressed="false">MA</button>
+      <button type="button" class="indicator" data-name="EMA" aria-pressed="false">EMA</button>
+      <button type="button" class="indicator" data-name="BOLL" aria-pressed="false">BOLL</button>
+      <button type="button" class="indicator" data-name="VOL" aria-pressed="false">VOL</button>
+      <button type="button" class="indicator" data-name="MACD" aria-pressed="false">MACD</button>
+      <button type="button" class="indicator" data-name="RSI" aria-pressed="false">RSI</button>
+    </div>
+
+    <div class="group" role="group" aria-label="Drawing tools">
+      <span class="label">Draw</span>
+      <button type="button" class="draw" data-name="horizontalStraightLine" title="Horizontal line">H-line</button>
+      <button type="button" class="draw" data-name="segment" title="Trend line">Trend</button>
+      <button type="button" class="draw" data-name="rayLine" title="Ray">Ray</button>
+      <button type="button" class="draw" data-name="fibonacciLine" title="Fibonacci retracement">Fib</button>
+      <button type="button" id="clear-drawings" title="Remove all drawings" aria-label="Clear drawings">Clear</button>
+    </div>
+
+    <div class="group forecast" role="group" aria-label="Kronos forecast">
+      <span class="label">Kronos</span>
+      <select id="model" aria-label="Model" title="Model"></select>
+      <select id="pred-len" aria-label="Candles to forecast" title="Candles to forecast"></select>
+      <select id="samples" aria-label="Samples to average" title="Forecast samples to average"></select>
+      <button type="button" id="run-forecast" class="primary">Forecast</button>
+      <label class="check" title="Run the forecast again each time a candle closes">
+        <input type="checkbox" id="auto-forecast" aria-label="Auto forecast"> Auto
+      </label>
+      <button type="button" id="clear-forecast" title="Remove the forecast" aria-label="Clear forecast">Clear</button>
+    </div>
+  </header>
+
+  <main id="chart" aria-label="Price chart"></main>
+
+  <footer class="statusbar">
+    <span id="status" aria-live="off"></span>
+    <span id="notice" role="alert"></span>
+    <span id="forecast-status" role="status"></span>
+    <span id="hint"></span>
+    <span class="disclaimer">Research tool, not trading advice.</span>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/klinecharts@10.1.0/dist/umd/klinecharts.min.js"
+          integrity="sha384-PdxmZHfTETfZiWcY/lOW/FdSPI3RTThvwFZDXUCvqNbLhWIL6z0bmLCSd7BorO6s"
+          crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
