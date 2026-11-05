@@ -65,6 +65,13 @@ How the forecast works and its limits:
 - Only finished candles go in; the candle still forming is left out. The first forecast candle is
   therefore the forecast for the forming candle and is drawn on top of it.
 - A single sample often moves much further than the real price does; averaging 3–5 samples is steadier.
+  10, 15 and 25 samples are steadier still but slower, since the time grows with the count. On an
+  M1 Mac (mps), Kronos-small with 48 candles takes about 5 s with 3 samples and 50 s with 25;
+  Kronos-base with 120 candles and 25 samples, the slowest choice, takes about 8 minutes. With many
+  samples the candle bodies get smaller and the path flatter (in a test at 25 samples, about half
+  the size of real candles), while the high–low wicks stay about the same.
+- **Clear** during a run only drops its result: Kronos cannot stop midway, so the Forecast button
+  comes back when the server finishes that run.
 - Future times are continuous, so a forex forecast made on Friday evening runs through the weekend.
 - Forecasts are random samples from a research model. They are not trading advice.
 

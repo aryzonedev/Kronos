@@ -75,7 +75,7 @@ MODELS = {
 }
 DEFAULT_MODEL = "kronos-small"
 PRED_LEN_CHOICES = [12, 24, 48, 96, 120]
-SAMPLE_COUNT_CHOICES = [1, 2, 3, 5]
+SAMPLE_COUNT_CHOICES = [1, 2, 3, 5, 10, 15, 25]  # time grows with the count: 25 is 8-10x slower than 3
 DEFAULT_SAMPLE_COUNT = 3  # one sample swings much more than the real price; 3 is steadier
 MIN_HISTORY = 64          # fewer closed candles than this gives a meaningless forecast
 CHART_CANDLES = 500       # candles the page loads on start / symbol change

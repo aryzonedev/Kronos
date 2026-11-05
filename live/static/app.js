@@ -9,13 +9,16 @@
   const FOREX_MIN_POLL_MS = 2 * 60 * 1000;
   const SLOW_POLL_MS = 15 * 60 * 1000;          // long intervals and closed markets
   const CANDLES_TIMEOUT_MS = 20 * 1000;
-  const FORECAST_TIMEOUT_MS = 5 * 60 * 1000;    // the first run of a model may download it
+  // The first run of a model may download it, and Kronos-base with 120 candles and
+  // 25 samples takes about 8 minutes on an M1 Mac (mps).
+  const FORECAST_TIMEOUT_MS = 15 * 60 * 1000;
   const PREFETCH_MAX_AGE_MS = 15 * 1000;
   const DEFAULT_RIGHT_OFFSET_PX = 80;
   const DRAWINGS_GROUP = 'drawings';
   const FORECAST_GROUP = 'kronos';
   const STORAGE_KEY = 'kronos-live-selection';
   const RUNNING_TEXT = 'Running Kronos…';
+  const CANCELLED_TEXT = 'Forecast cancelled. Kronos cannot stop midway; Forecast works again when the server finishes.';
   const CANDLE = { up: '#089981', down: '#f23645', flat: '#787b86' };
   const FORECAST = {
     up: '#5b8def',
@@ -297,7 +300,8 @@
 
   function clearForecast() {
     state.forecastRunId += 1;   // a forecast that is still running will not be drawn
-    setText(els.forecastStatus, '');
+    // The server still finishes that run, and the Forecast button stays off until then.
+    setText(els.forecastStatus, state.forecasting ? CANCELLED_TEXT : '');
     if (!chart || state.forecast === null) return;
     state.forecast = null;
     chart.removeOverlay({ groupId: FORECAST_GROUP });
@@ -354,7 +358,8 @@
     } finally {
       state.forecasting = false;
       updateForecastButton();
-      if (isStale() && els.forecastStatus.textContent === RUNNING_TEXT) setText(els.forecastStatus, '');
+      const statusText = els.forecastStatus.textContent;
+      if (isStale() && (statusText === RUNNING_TEXT || statusText === CANCELLED_TEXT)) setText(els.forecastStatus, '');
     }
   }
 
